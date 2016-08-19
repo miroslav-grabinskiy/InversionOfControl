@@ -46,12 +46,18 @@
 
   ```JavaScript
   function cloneInterface(anInterface) {
-    var clone = {};
+    var clone = anInterface instanceof Array ? [] : {};
     for (var key in anInterface) {
-      clone[key] = anInterface[key];
+    	if (anInterface[key] instanceof Object) {
+    		console.log(true);
+    		clone[key] = cloneInterface(anInterface[key]);
+    	} else {
+  		clone[key] = anInterface[key];
+      }
     }
     return clone;
   }
+
   ```
 4. Пишем функцию `wrapFunction(fnName, fn)` которая оборачивает функцию `fn` и
 возвращает функцию-замыкание от `wrapper`. Замыкание, это ссылка на копию
